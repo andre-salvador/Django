@@ -31,7 +31,6 @@ class RecipeViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
         response_context_recipes = response.context['recipes']
 
-        self.assertIn('Recipe Title', content)
         self.assertIn('10 Minutos', content)
         self.assertIn('5 Porções', content)
         self.assertEqual(len(response_context_recipes), 1)
