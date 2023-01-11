@@ -4,6 +4,7 @@ autopep8==2.0.0
 bcrypt==4.0.1
 cffi==1.15.1
 colorama==0.4.6
+coverage==7.0.5
 cryptography==38.0.4
 Django==4.1.4
 fabric==2.7.1
@@ -15,6 +16,7 @@ mccabe==0.7.0
 mypy==0.991
 mypy-extensions==0.4.3
 packaging==22.0
+parameterized==0.8.1
 paramiko==2.12.0
 pathlib2==2.3.7.post1
 Pillow==9.4.0
