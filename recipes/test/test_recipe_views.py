@@ -21,7 +21,7 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_home_template_shows_no_recipes_found_if_no_recipes(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertIn(
-            '<h1>No recipes found here 😢</h1>',
+            '<div class="center m-y">',
             response.content.decode('utf-8')
         )
 
@@ -35,6 +35,16 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertIn('10 Minutos', content)
         self.assertIn('5 Porções', content)
         self.assertEqual(len(response_context_recipes), 1)
+
+    def test_recipe_home_template__dont_loads_recipes_not_published(self):
+        '''test recipe is_published False dont show'''
+        # need a recipe for this test
+        self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:home'))
+        content = response.content.decode('utf-8')
+
+        self.assertIn('<div class="center m-y">', content)
 
     def test_recipe_category_view_function_is_correct(self):
         view = resolve(
@@ -50,10 +60,22 @@ class RecipeViewsTest(RecipeTestBase):
         needed_title = 'This is a category test'
         self.make_recipe(title=needed_title)
 
-        response = self.client.get(reverse('recipes:category', args=(1,)))
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
         content = response.content.decode('utf-8')
 
         self.assertIn(needed_title, content)
+
+    def test_recipe_category_template__dont_loads_recipes_not_published(self):
+        '''test recipe is_published False dont show'''
+        # need a recipe for this test
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(
+            reverse('recipes:category',
+                    kwargs={'category_id': recipe.category.id}))
+
+        self.assertEqual(response.status_code, 404)
 
     def test_recipe_detail_view_function_is_correct(self):
         view = resolve(
@@ -77,3 +99,13 @@ class RecipeViewsTest(RecipeTestBase):
 
         # need if one recipe exists
         self.assertIn(needed_title, content)
+
+    def test_recipe_detail_template__dont_loads_recipe_not_published(self):
+        '''test recipe is_published False dont show'''
+        # need a recipe for this test
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:recipe',
+                                           kwargs={'id': recipe.id}))
+
+        self.assertEqual(response.status_code, 404)
