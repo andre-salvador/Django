@@ -109,3 +109,6 @@ class RecipeViewsTest(RecipeTestBase):
                                            kwargs={'id': recipe.id}))
 
         self.assertEqual(response.status_code, 404)
+
+    def test_recipe_search_user_correct_view_function(self):
+        ...
