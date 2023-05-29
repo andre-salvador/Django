@@ -19,12 +19,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipe',
             name='category',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='recipes.category'),
+            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='recipes.category'),  # noqa: E501
         ),
         migrations.AlterField(
             model_name='recipe',
             name='cover',
-            field=models.ImageField(blank=True, default='', upload_to='recipes/covers/%Y/%m/%d/'),
+            field=models.ImageField(blank=True, default='', upload_to='recipes/covers/%Y/%m/%d/'),  # noqa: E501
         ),
         migrations.AlterField(
             model_name='recipe',

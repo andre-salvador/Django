@@ -9,14 +9,7 @@ class RecipeTestBase(TestCase):
     def make_category(self, name='Category'):
         return Category.objects.create(name=name)
 
-    def make_author(
-        self,
-        first_name='user',
-        last_name='name',
-        username='username',
-        password='123456',
-        email='username@email.com',
-    ):
+    def make_author(self, first_name='user', last_name='name', username='username', password='123456', email='username@email.com',):  # noqa: E501
         return User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
